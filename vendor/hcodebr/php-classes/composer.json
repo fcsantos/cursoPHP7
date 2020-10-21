@@ -1,13 +1,13 @@
 {
     "name": "hcodebr/php-classes",
-    "minimum-stability": "dev",
+    "minimum-stability": "develop",
     "type": "library",
     "description": "Classes PHP",
-    "homepage": "https://github.com/hcodebr/php-classes",
+    "homepage": "https://github.com/fcsantos",
     "authors": [
         {
-            "name": "Hcode Treinamentos",
-            "email": "suporte@hcode.com.br"
+            "name": "Felipe Santos",
+            "email": "teste@gmail.com"
         }
     ],
     "require": {
@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "": "src"
+            "Hcode": "src"
         }
     }
 }

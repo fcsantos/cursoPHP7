@@ -7,6 +7,7 @@ use \Slim\Slim;
 use \Hcode\Page;
 use \Hcode\PageAdmin;
 use \Hcode\Model\User;
+use \Hcode\Model\Category;
 
 $app = new Slim();
 
@@ -91,7 +92,7 @@ $app->get("/admin/users/:iduser/delete", function ($iduser) {
 
 	$user = new User();
 
-	$user->get((int)$iduser);
+	$user->getById((int)$iduser);
 
 	$user->delete();
 
@@ -106,7 +107,7 @@ $app->get("/admin/users/:iduser", function($iduser){
 
 	$user = new User();
 
-	$user->get((int)$iduser);
+	$user->getById((int)$iduser);
 
 	$page = new PageAdmin();
 
@@ -115,7 +116,7 @@ $app->get("/admin/users/:iduser", function($iduser){
 	));
 });
 
-//página para criação do usuário
+//criação do usuário e redirect para página da lista de usuário
 $app->post("/admin/users/create", function () {
 
 	User::verifyLogin();
@@ -145,7 +146,7 @@ $app->post("/admin/users/:iduser", function ($iduser) {
 
 	$_POST["inadmin"] = (isset($_POST["inadmin"])) ? 1 : 0;
 
-	$user->get((int)$iduser);
+	$user->getById((int)$iduser);
 
 	$user->setData($_POST);
 
@@ -225,6 +226,91 @@ $app->post("/admin/forgot/reset", function(){
 	]);
 
 	$page->setTpl("forgot-reset-success");
+});
+
+//página da listagem de categorias
+$app->get("/admin/categories", function(){
+
+	$categories = Category::listAll();
+
+	$page = new PageAdmin();
+
+	$page->setTpl("categories", [
+		'categories'=>$categories
+	]);
+});
+
+//página para criação da categoria
+$app->get("/admin/categories/create", function(){
+
+	User::verifyLogin();
+
+	$page = new PageAdmin();
+
+	$page->setTpl("categories-create");
+});
+
+////criação da categoria e redirect para página da lista de categorias
+$app->post("/admin/categories/create", function () {
+
+	User::verifyLogin();
+
+    $category = new Category();
+
+	$category->setData($_POST);
+
+    $category->save();
+
+    header("Location: /admin/categories");
+	exit;
+});
+
+//deleção do usuário e redirect para página da lista de usuários
+$app->get("/admin/categories/:idcategory/delete", function ($idcategory) {
+
+	User::verifyLogin();
+
+	$category = new Category();
+
+	$category->getById((int)$idcategory);
+
+	$category->delete();
+
+	header("Location: /admin/categories");
+	exit;
+});
+
+//página para alteração da categoria
+$app->get("/admin/categories/:idcategory", function($idcategory){
+
+	User::verifyLogin();
+
+	$category = new Category();
+
+	$category->getById((int)$idcategory);
+
+	$page = new PageAdmin();
+
+	$page->setTpl("categories-update", array(
+		"category"=>$category->getValues()
+	));
+});
+
+//alteração do usuário e redirect para página da lista de usuários
+$app->post("/admin/categories/:idcategory", function ($idcategory) {
+
+	User::verifyLogin();
+
+	$category = new Category();
+
+	$category->getById((int)$idcategory);
+
+	$category->setData($_POST);
+
+	$category->save();
+
+	header("Location: /admin/categories");
+	exit;
 });
 
 $app->run();

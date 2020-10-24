@@ -89,7 +89,7 @@ class User extends ModelBasic {
 		$this->setData($results[0]);
 	}
 
-	public function get($iduser)
+	public function getById($iduser)
 	{
 		$sql = new Sql();
 

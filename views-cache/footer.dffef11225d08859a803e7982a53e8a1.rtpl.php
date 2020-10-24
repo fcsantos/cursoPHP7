@@ -90,11 +90,14 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 2.2.3 -->
-<script src="res/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- <script src="res/admin/plugins/jQuery/jquery-2.2.3.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha512-SFaNb3xC08k/Wf6CRM1J+O/vv4YWyrPBSdy0o+1nqKzf+uLrIBnaeo8aYoAAOd31nMNHwX8zwVwTMbbCJjA8Kg==" crossorigin="anonymous"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="res/admin/bootstrap/js/bootstrap.min.js"></script>
+<!-- <script src="res/admin/bootstrap/js/bootstrap.min.js"></script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <!-- AdminLTE App -->
-<script src="res/admin/dist/js/app.min.js"></script>
+<!-- <script src="res/admin/dist/js/app.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.8/js/app.min.js" integrity="sha512-A7tU+BL1r5B5AXjVnPLz6GqMUvn3Mu1crq+7q7owk02B0SqAsi8qJQeRRXNloCy+msEWmB/hiKHbmWoR9BbB1g==" crossorigin="anonymous"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

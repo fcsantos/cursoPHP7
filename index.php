@@ -313,6 +313,20 @@ $app->post("/admin/categories/:idcategory", function ($idcategory) {
 	exit;
 });
 
+//página para alteração da categoria
+$app->get("/categories/:idcategory", function($idcategory){
+
+	$category = new Category();
+
+	$category->getById((int)$idcategory);
+
+	$page = new Page();
+
+	$page->setTpl("category", [
+		"category"=>$category->getValues()
+	]);
+});
+
 $app->run();
 
  ?>

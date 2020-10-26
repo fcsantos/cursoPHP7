@@ -111,11 +111,21 @@ $app->get("/cart/:idproduct/remove", function($idproduct){
 
 	$product = new Product();
 
-	$product->get((int)$idproduct);
+	$product->getById((int)$idproduct);
 
 	$cart = Cart::getFromSession();
 
 	$cart->removeProduct($product, true);
+
+	header("Location: /cart");
+	exit;
+});
+
+$app->post("/cart/freight", function(){
+
+	$cart = Cart::getFromSession();
+
+	$cart->setFreight($_POST['zipcode']);
 
 	header("Location: /cart");
 	exit;

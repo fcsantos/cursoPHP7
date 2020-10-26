@@ -222,9 +222,6 @@ class Cart extends ModelBasic {
 
 			return $result;
 
-		} else {
-
-
 		}
 	}
 

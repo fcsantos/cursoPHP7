@@ -58,7 +58,6 @@ $app->get("/products/:desurl", function($desurl){
 		'product'=>$product->getValues(),
 		'categories'=>$product->getCategories()
 	]);
-
 });
 
 $app->get("/cart", function(){
@@ -72,7 +71,54 @@ $app->get("/cart", function(){
 		'products'=>$cart->getProducts(),
 		'error'=>Cart::getMsgError()
 	]);
+});
 
+$app->get("/cart/:idproduct/add", function($idproduct){
+
+	$product = new Product();
+
+	$product->getById((int)$idproduct);
+
+	$cart = Cart::getFromSession();
+
+	$qtd = (isset($_GET['qtd'])) ? (int)$_GET['qtd'] : 1;
+
+	for ($i = 0; $i < $qtd; $i++) {
+		
+		$cart->addProduct($product);
+
+	}
+
+	header("Location: /cart");
+	exit;
+});
+
+$app->get("/cart/:idproduct/minus", function($idproduct){
+
+	$product = new Product();
+
+	$product->getById((int)$idproduct);
+
+	$cart = Cart::getFromSession();
+
+	$cart->removeProduct($product);
+
+	header("Location: /cart");
+	exit;
+});
+
+$app->get("/cart/:idproduct/remove", function($idproduct){
+
+	$product = new Product();
+
+	$product->get((int)$idproduct);
+
+	$cart = Cart::getFromSession();
+
+	$cart->removeProduct($product, true);
+
+	header("Location: /cart");
+	exit;
 });
 
 ?>

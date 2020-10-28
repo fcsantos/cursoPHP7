@@ -12,15 +12,20 @@ $app->get("/admin/products", function(){
 	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
 
 	if ($search != '') {
+
 		$pagination = Product::getPageSearch($search, $page);
+
 	} else {
+
 		$pagination = Product::getPage($page);
+
 	}
 
 	$pages = [];
 
 	for ($x = 0; $x < $pagination['pages']; $x++)
 	{
+
 		array_push($pages, [
 			'href'=>'/admin/products?'.http_build_query([
 				'page'=>$x+1,
@@ -28,9 +33,8 @@ $app->get("/admin/products", function(){
 			]),
 			'text'=>$x+1
 		]);
-	}
 
-	$products = Product::listAll();
+	}
 
 	$page = new PageAdmin();
 
@@ -39,6 +43,7 @@ $app->get("/admin/products", function(){
 		"search"=>$search,
 		"pages"=>$pages
 	]);
+
 });
 
 $app->get("/admin/products/create", function(){
@@ -61,6 +66,20 @@ $app->post("/admin/products/create", function(){
 	$product->save();
 
 	header("Location: /admin/products");
+	exit;
+});
+
+$app->get("/admin/products/:idproduct/delete", function($idproduct){
+
+	User::verifyLogin();
+
+	$product = new Product();
+
+	$product->getById((int)$idproduct);
+
+	$product->delete();
+
+	header('Location: /admin/products');
 	exit;
 });
 
@@ -92,20 +111,6 @@ $app->post("/admin/products/:idproduct", function($idproduct){
 	$product->save();
 
 	$product->setPhoto($_FILES["file"]);
-
-	header('Location: /admin/products');
-	exit;
-});
-
-$app->get("/admin/products/:idproduct/delete", function($idproduct){
-
-	User::verifyLogin();
-
-	$product = new Product();
-
-	$product->getById((int)$idproduct);
-
-	$product->delete();
 
 	header('Location: /admin/products');
 	exit;
